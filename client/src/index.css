@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@500;600&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background: #fbfaf7;
+  color: #171717;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  transition: .18s ease;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #ef476f;
+  outline-offset: 2px;
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-500;
+  }
+
+  .section-title {
+    @apply font-display text-4xl font-semibold leading-none sm:text-5xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-neutral-800;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-blush px-5 py-3 text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:brightness-95;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-200 bg-white px-5 py-3 text-sm font-semibold text-ink hover:border-neutral-300 hover:bg-neutral-50;
+  }
+
+  .card {
+    @apply rounded-2xl border border-neutral-200/70 bg-white shadow-soft;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-neutral-200 bg-white px-3.5 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-ink focus:ring-2 focus:ring-neutral-100;
+  }
+
+  .label {
+    @apply mb-2 block text-sm font-semibold text-neutral-800;
+  }
+}

@@ -1,0 +1,6 @@
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import api from '../services/api'
+import ProductCard from '../components/ProductCard'
+import Spinner from '../components/Spinner'
+export default function Category(){const {slug}=useParams();const [data,setData]=useState(null);const [loading,setLoading]=useState(true);useEffect(()=>{setLoading(true);api.get(`/categories/${slug}`).then(r=>setData(r.data)).catch(()=>setData(null)).finally(()=>setLoading(false))},[slug]);if(loading)return <div className="container-page py-20 text-center"><Spinner/></div>;if(!data)return <div className="container-page py-20 text-center"><h1 className="text-2xl font-semibold">Category not found</h1><Link className="btn-secondary mt-5" to="/products">Browse products</Link></div>;return <section className="container-page py-12 sm:py-16"><span className="eyebrow">StyleNest category</span><h1 className="section-title mt-3">{data.category.name}</h1><div className="mt-8">{data.products.length?<div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4">{data.products.map(p=><ProductCard key={p._id} product={p}/>)}</div>:<div className="card p-12 text-center"><p className="font-semibold">No products in this category.</p></div>}</div></section>}

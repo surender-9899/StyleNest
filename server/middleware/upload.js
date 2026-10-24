@@ -8,3 +8,10 @@ export const uploadImages = multer({
   limits: { fileSize: 5 * 1024 * 1024, files: 10 },
   fileFilter: (req, file, cb) => cb(null, allowed.includes(file.mimetype))
 }).array('images', 10)
+
+export const uploadSingleImage = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => cb(null, allowed.includes(file.mimetype))
+}).single('image')
+

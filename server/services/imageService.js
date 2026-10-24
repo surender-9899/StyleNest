@@ -20,7 +20,22 @@ export async function uploadMany(files) {
   return Promise.all(files.map(file => uploadBuffer(file.buffer)))
 }
 
+export async function uploadSingle(file, folder = 'stylenest/categories') {
+  if (!process.env.CLOUDINARY_CLOUD_NAME) {
+    const err = new Error('Cloudinary is not configured. Add Cloudinary credentials to .env')
+    err.status = 500
+    throw err
+  }
+  return uploadBuffer(file.buffer, folder)
+}
+
 export async function removeMany(images = []) {
   if (!process.env.CLOUDINARY_CLOUD_NAME) return
   await Promise.allSettled(images.filter(x => x?.publicId).map(x => cloudinary.uploader.destroy(x.publicId, { resource_type: 'image' })))
 }
+
+export async function removeSingle(publicId) {
+  if (!process.env.CLOUDINARY_CLOUD_NAME || !publicId) return
+  await cloudinary.uploader.destroy(publicId, { resource_type: 'image' }).catch(() => {})
+}
+

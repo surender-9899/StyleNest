@@ -5,6 +5,16 @@ import api from '../services/api'
 import ProductCard from '../components/ProductCard'
 import Spinner from '../components/Spinner'
 
+const DEFAULT_CATEGORY_IMAGES = {
+  accessories: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80',
+  bags: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
+  dresses: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80',
+  men: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80',
+  shirts: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80',
+  shoes: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80',
+  women: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'
+}
+
 export default function Home() {
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
@@ -123,22 +133,44 @@ export default function Home() {
             View all <ArrowRight size={15} />
           </Link>
         </div>
-        <div className="mt-7 grid grid-cols-2 gap-3 md:grid-cols-4">
-          {categories.slice(0, 8).map((c) => (
-            <Link
-              key={c._id}
-              to={`/category/${c.slug}`}
-              className="group relative overflow-hidden rounded-2xl bg-neutral-200 p-7"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
-              <div className="relative">
-                <span className="text-xs font-semibold uppercase tracking-[.18em] text-white/75">
-                  StyleNest
-                </span>
-                <p className="mt-12 text-xl font-semibold text-white">{c.name}</p>
-              </div>
-            </Link>
-          ))}
+        <div className="mt-7 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+          {categories.slice(0, 8).map((c) => {
+            const coverImage =
+              c.image ||
+              c.imageUrl ||
+              DEFAULT_CATEGORY_IMAGES[c.slug?.toLowerCase()] ||
+              DEFAULT_CATEGORY_IMAGES[c.name?.toLowerCase()]
+            return (
+              <Link
+                key={c._id}
+                to={`/category/${c.slug}`}
+                className="group relative flex aspect-[4/3] min-h-[160px] flex-col justify-between overflow-hidden rounded-2xl bg-neutral-800 p-6 sm:p-7 shadow-sm transition-all duration-300 hover:shadow-md"
+              >
+                {coverImage ? (
+                  <img
+                    src={coverImage}
+                    alt={c.name}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-neutral-700 to-neutral-900" />
+                )}
+
+                {/* Gradient overlay for perfect contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/30 transition-colors duration-300 group-hover:from-black/85 group-hover:via-black/40" />
+
+                {/* Content */}
+                <div className="relative z-10 flex h-full flex-col justify-between">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                    StyleNest
+                  </span>
+                  <p className="mt-8 text-lg font-semibold text-white drop-shadow-sm sm:text-xl">
+                    {c.name}
+                  </p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </section>
 

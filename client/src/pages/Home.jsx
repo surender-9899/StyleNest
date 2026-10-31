@@ -42,7 +42,7 @@ export default function Home() {
           ========================================================================= */}
       <section className="container-page pt-2 sm:pt-6 pb-8 sm:pb-12">
         <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] bg-[#f8f6f0] border border-neutral-200/80 shadow-soft">
-          
+
           {/* ==================== DESKTOP SHOWCASE (lg: screens & up) ==================== */}
           <div className="hidden lg:grid lg:grid-cols-12 items-stretch min-h-[580px] xl:min-h-[620px]">
             {/* Left Content Column */}
@@ -111,7 +111,7 @@ export default function Home() {
             {/* Right Editorial Visual Showcase */}
             <div className="lg:col-span-5 relative overflow-hidden bg-neutral-200">
               <img
-                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=85"
+                src="https://res.cloudinary.com/cmh3rjgb/image/upload/v1793197663/Fall_Fashion_Amazon_Finds_2026.jpg"
                 alt="StyleNest High Fashion"
                 className="absolute inset-0 h-full w-full object-cover object-[center_top] transition-transform duration-700 ease-out hover:scale-105"
                 loading="eager"
@@ -175,10 +175,10 @@ export default function Home() {
           {/* ==================== MOBILE & TABLET SHOWCASE (< lg) ==================== */}
           {/* Magazine Cover Hero designed specifically for mobile touch & visual wow factor */}
           <div className="lg:hidden relative min-h-[500px] h-[520px] xs:h-[560px] sm:h-[600px] w-full overflow-hidden flex flex-col justify-between p-5 xs:p-6 sm:p-8">
-            
+
             {/* Background Editorial Image */}
             <img
-              src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=85"
+              src="https://res.cloudinary.com/cmh3rjgb/image/upload/v1793197663/Fall_Fashion_Amazon_Finds_2026.jpg"
               alt="StyleNest Fashion"
               className="absolute inset-0 h-full w-full object-cover object-[center_20%] select-none pointer-events-none"
               loading="eager"
@@ -289,17 +289,17 @@ export default function Home() {
       <section className="container-page pb-16">
         <div className="flex items-end justify-between">
           <div>
-            <span className="eyebrow">Shop by mood</span>
-            <h2 className="section-title mt-2">Featured categories</h2>
+            <span className="eyebrow text-[#b56b64]">Shop by mood</span>
+            <h2 className="section-title mt-1.5 sm:mt-2 text-[#0f1e2e]">Featured categories</h2>
           </div>
           <Link
-            className="hidden text-sm font-semibold sm:inline-flex sm:items-center sm:gap-2"
+            className="hidden text-sm font-semibold sm:inline-flex sm:items-center sm:gap-2 text-neutral-700 hover:text-black transition-colors"
             to="/products"
           >
             View all <ArrowRight size={15} />
           </Link>
         </div>
-        <div className="mt-7 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+        <div className="mt-6 sm:mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
           {categories.slice(0, 8).map((c) => {
             const coverImage =
               c.image ||
@@ -310,29 +310,36 @@ export default function Home() {
               <Link
                 key={c._id}
                 to={`/category/${c.slug}`}
-                className="group relative flex aspect-[4/3] min-h-[160px] flex-col justify-between overflow-hidden rounded-2xl bg-neutral-800 p-6 sm:p-7 shadow-sm transition-all duration-300 hover:shadow-md"
+                className="group relative flex aspect-[4/5] w-full flex-col justify-end overflow-hidden rounded-2xl sm:rounded-3xl bg-neutral-900 p-3.5 sm:p-5 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]"
               >
                 {coverImage ? (
                   <img
                     src={coverImage}
                     alt={c.name}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-neutral-700 to-neutral-900" />
                 )}
 
                 {/* Gradient overlay for perfect contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/30 transition-colors duration-300 group-hover:from-black/85 group-hover:via-black/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent transition-opacity duration-300 group-hover:from-black/90" />
 
-                {/* Content */}
-                <div className="relative z-10 flex h-full flex-col justify-between">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
-                    StyleNest
+                {/* Bottom Content Area */}
+                <div className="relative z-10 flex w-full items-end justify-between gap-1.5">
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-sans font-bold text-white text-[15px] sm:text-lg leading-tight drop-shadow-sm">
+                      {c.name}
+                    </p>
+                    <p className="mt-0.5 text-[11px] sm:text-xs text-white/80 font-normal">
+                      Shop Now
+                    </p>
+                  </div>
+
+                  <span className="flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/25 shadow-sm group-hover:bg-white group-hover:text-[#0f1e2e] group-hover:scale-105 transition-all duration-200">
+                    <ArrowRight size={13} className="sm:w-4 sm:h-4 stroke-[2.2]" />
                   </span>
-                  <p className="mt-8 text-lg font-semibold text-white drop-shadow-sm sm:text-xl">
-                    {c.name}
-                  </p>
                 </div>
               </Link>
             )
